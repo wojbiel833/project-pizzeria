@@ -111,11 +111,14 @@
         select.menuProduct.priceElem
       ); // .product__total-price .price
       console.log(thisProduct.priceElem);
+<<<<<<< HEAD
 
       thisProduct.imageWrapper = thisProduct.element.querySelector(
         select.menuProduct.imageWrapper
       ); //.product__images
       console.log(thisProduct.imageWrapper);
+=======
+>>>>>>> 575beab642f77db2666067386cd179278b303448
     }
 
     initAccordion() {
@@ -177,6 +180,7 @@
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
           console.log(optionId, option);
+<<<<<<< HEAD
           // access to[param]-[option]' with images
           const optionImage = thisProduct.imageWrapper.querySelectorAll(
             `.${paramId}-${optionId}`
@@ -194,6 +198,11 @@
           if (formData[paramId] && formData[paramId].includes(optionId)) {
             if (option) thisProduct.imageWrapper.innerHTML += activeImg;
 
+=======
+
+          // check if there is param with a name of paramId in formData and if it includes optionId
+          if (formData[paramId] && formData[paramId].includes(optionId)) {
+>>>>>>> 575beab642f77db2666067386cd179278b303448
             // check if the option is not default
             if (!option.default) {
               // add option price to price variable
@@ -234,11 +243,11 @@
 
     init: function () {
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      // console.log('*** App starting ***');
+      // console.log('thisApp:', thisApp);
+      // console.log('classNames:', classNames);
+      // console.log('settings:', settings);
+      // console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
