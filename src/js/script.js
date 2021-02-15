@@ -65,6 +65,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
       console.log(`newProduct:`, thisProduct);
@@ -72,7 +73,6 @@
 
     renderInMenu() {
       const thisProduct = this;
-
       /* generate HTML based on template */
       const generateHTML = templates.menuProduct(thisProduct.data);
       // console.log(generateHTML);
@@ -81,43 +81,41 @@
       /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
       // console.log(menuContainer);
-
       /* add element to menu */
       menuContainer.appendChild(thisProduct.element);
     }
-
     getElements() {
       const thisProduct = this;
 
       thisProduct.accordionTrigger = thisProduct.element.querySelector(
         select.menuProduct.clickable
       ); // product__header
-      console.log(thisProduct.accordionTrigger);
-
+      // console.log(thisProduct.accordionTrigger);
       thisProduct.form = thisProduct.element.querySelector(
         select.menuProduct.form
       ); // product__order
-      console.log(thisProduct.form);
-
+      // console.log(thisProduct.form);
       thisProduct.formInputs = thisProduct.form.querySelectorAll(
         select.all.formInputs
       ); // input, select
-      console.log(thisProduct.formInputs);
+      // console.log(thisProduct.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(
         select.menuProduct.cartButton
       ); // [href="#add-to-cart"]
-      console.log(thisProduct.cartButton);
+      // console.log(thisProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(
         select.menuProduct.priceElem
       ); // .product__total-price .price
-      console.log(thisProduct.priceElem);
-
+      // console.log(thisProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(
         select.menuProduct.imageWrapper
       ); //.product__images
-      console.log(thisProduct.imageWrapper);
+      // console.log(thisProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(
+        select.menuProduct.amountWidget
+      ); // .widget-amount
+      console.log(thisProduct.amountWidgetElem);
     }
-
     initAccordion() {
       const thisProduct = this;
 
@@ -156,8 +154,6 @@
         event.preventDefault();
         thisProduct.processOrder();
       });
-
-      console.log(`initOrderForm:`);
     }
     processOrder() {
       const thisProduct = this;
@@ -178,11 +174,6 @@
           const option = param.options[optionId];
           // console.log(optionId, option);
           // access to[param]-[option]' with images
-          const optionImage = thisProduct.imageWrapper.querySelectorAll(
-            `.${paramId}-${optionId}`
-          );
-          console.log(optionImage);
-
           const activeImgs = document.querySelectorAll(
             `.${paramId}-${optionId}.active`
           );
@@ -197,11 +188,12 @@
             const selectedImg = document.querySelector(
               `.${paramId}-${optionId}`
             );
-            console.log(selectedImg);
-            if (selectedImg) {
+            // console.log(selectedImg);
+            if (selectedImg)
               // console.log('ZNALAZŁO:', selectedImg);
               selectedImg.classList.add('active');
-            } else if (!option.default) {
+
+            if (!option.default) {
               // add option price to price variable
               price += option.price;
             }
@@ -217,19 +209,28 @@
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
     }
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+    }
+  }
+
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+
+      console.log('AmountWidget:', AmountWidget);
+      console.log('constructor arguments:', element);
+    }
   }
   const app = {
     initMenu: function () {
       const thisApp = this;
-
       // console.log(`thisApp.data:`, thisApp.data);
-
       for (let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
       }
-      // DLA POJEDYŃCZEGO ELEMENTU
-      // const testProduct = new Product();
-      // console.log(`testProduct:`, testProduct);
     },
 
     initData: function () {
