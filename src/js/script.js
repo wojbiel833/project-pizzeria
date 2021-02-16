@@ -235,7 +235,7 @@
           }
         }
       }
-      // multiply price
+      // multiply price by ammount
       price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
@@ -244,6 +244,9 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisProduct.processOrder();
+      });
     }
   }
 
@@ -252,6 +255,7 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
+      thisWidget.input.value = settings.amountWidget.defaultValue;
       thisWidget.setValue(thisWidget.input.value);
       thisWidget.initActions();
 
@@ -273,6 +277,12 @@
         select.widgets.amount.linkIncrease
       );
     }
+    announce() {
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
     setValue(value) {
       const thisWidget = this;
 
@@ -280,16 +290,23 @@
 
       /* TODO: Add validation */
 
-      // thisWidget.value = newValue;
-      // thisWidget.input.value = settings.amountWidget.defaultValue;
+      thisWidget.value = newValue;
 
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      if (
+        thisWidget.value !== newValue &&
+        !isNaN(newValue) &&
+        thisWidget.value <= settings.amountWidget.defaultMax &&
+        thisWidget.value >= settings.amountWidget.defaultMin
+      ) {
         console.log(newValue);
         console.log(thisWidget.value !== newValue);
         console.log(!isNaN(newValue));
+
         thisWidget.value = newValue;
       }
+      thisWidget.announce();
     }
+
     initActions() {
       const thisWidget = this;
 
@@ -320,19 +337,15 @@
     getElements(element) {
       const thisCart = this;
 
+      thisCart.dom = {};
+      // console.log(thisCart.dom);
       thisCart.dom.wrapper = element;
-
-      thisCart.dom = {
-        toggleTrigger: thisCart.dom.wrapper.querySelector(
-          select.cart.toggleTrigger
-        ),
-      };
-
-      console.log(select.cart.toggleTrigger);
-      console.log(thisCart.dom);
-      console.log(thisCart.dom.wrapper);
-
+      // console.log(thisCart.dom.wrapper);
+      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(
+        select.cart.toggleTrigger
+      );
       // console.log(thisCart.dom.toggleTrigger);
+      // console.log(select.cart.toggleTrigger);
     }
   }
   const app = {
