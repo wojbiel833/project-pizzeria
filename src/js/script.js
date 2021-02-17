@@ -299,10 +299,10 @@
           // access to[param]-[option]' with images
 
           if (formData[paramId] && formData[paramId].includes(optionId)) {
-            // const opts = [...formData[paramId]];
+            const opts = [...formData[paramId]];
             // for (let i = 0; i < formData[paramId].length; i++)
             thisProduct.dishOpt[paramId].options = {
-              option: formData[paramId],
+              optionId: `${opts}`,
             };
           }
           // ${optionId}: ${option} ${formData[paramId]}
@@ -404,10 +404,12 @@
       thisCart.dom = {};
       // console.log(thisCart.dom);
       thisCart.dom.wrapper = element;
+      thisCart.dom.productList = select.containerOf.menu;
       // console.log(thisCart.dom.wrapper);
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(
         select.cart.toggleTrigger
       );
+
       // console.log(thisCart.dom.toggleTrigger);
       // console.log(select.cart.toggleTrigger);
     }
@@ -419,9 +421,20 @@
       });
     }
     add(menuProduct) {
-      // const thisCart - this;
+      const thisCart = this;
 
       console.log('adding product', menuProduct);
+      /* generate HTML based on template */
+      const generateHTML = templates.cartProduct(menuProduct); //thisProduct.productSummary
+      console.log(generateHTML);
+      /* create element usint utils.createElementFromHTML */
+      thisCart.element = utils.createDOMFromHTML(generateHTML);
+      console.log(thisCart.element);
+      /* find cart container */
+      const cartContainer = document.querySelector(select.cart.productList);
+      console.log(cartContainer);
+      /* add element to menu */
+      cartContainer.appendChild(thisCart.element);
     }
   }
   const app = {
