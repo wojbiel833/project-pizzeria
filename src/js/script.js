@@ -276,26 +276,25 @@
       const thisProduct = this;
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
+      // console.log('formData', formData);
       // set price to default price
       thisProduct.dishOpt = {};
       // for every category (param)...
       for (let paramId in thisProduct.data.params) {
         // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
         const param = thisProduct.data.params[paramId];
-        console.log(paramId, param);
-        console.log(formData[paramId]);
+        // console.log(paramId, param);
+        // console.log(formData[paramId]);
 
         thisProduct.dishOpt[paramId] = {
           label: param.label,
           options: {},
         };
-
         // for every option in this category
         for (let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
           const option = param.options[optionId];
-          console.log(optionId, option);
+          // console.log(optionId, option);
           // access to[param]-[option]' with images
 
           if (formData[paramId] && formData[paramId].includes(optionId)) {
@@ -308,12 +307,6 @@
           // ${optionId}: ${option} ${formData[paramId]}
         }
       }
-      //   // create single price property
-      //   thisProduct.priceSingle = price;
-      //   // multiply price by ammount
-      //   price *= thisProduct.amountWidget.value;
-      //   // update calculated price in the HTML
-      //   thisProduct.priceElem.innerHTML = price;
       return thisProduct.dishOpt;
     }
   }
@@ -391,12 +384,12 @@
     constructor(element) {
       const thisCart = this;
 
-      thisCart.product = [];
+      thisCart.products = [];
 
       thisCart.getElements(element);
       thisCart.initActions();
 
-      console.log('newCart', thisCart);
+      // console.log('newCart', thisCart);
     }
     getElements(element) {
       const thisCart = this;
@@ -423,18 +416,21 @@
     add(menuProduct) {
       const thisCart = this;
 
-      console.log('adding product', menuProduct);
+      // console.log('adding product', menuProduct);
       /* generate HTML based on template */
       const generateHTML = templates.cartProduct(menuProduct); //thisProduct.productSummary
-      console.log(generateHTML);
+      // console.log(generateHTML);
       /* create element usint utils.createElementFromHTML */
       thisCart.element = utils.createDOMFromHTML(generateHTML);
-      console.log(thisCart.element);
+      // console.log(thisCart.element);
       /* find cart container */
       const cartContainer = document.querySelector(select.cart.productList);
-      console.log(cartContainer);
+      // console.log(cartContainer);
       /* add element to menu */
       cartContainer.appendChild(thisCart.element);
+      // pushing info to an array
+      thisCart.products.push(menuProduct);
+      // console.log('thisCart.products:', thisCart.products);
     }
   }
   const app = {
