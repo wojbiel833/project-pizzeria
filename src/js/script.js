@@ -107,6 +107,7 @@
       // console.log(generateHTML);
       /* create element usint utils.createElementFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generateHTML);
+      console.log(thisProduct.element);
       /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
       // console.log(menuContainer);
@@ -290,37 +291,37 @@
 
       /* TODO: Add validation */
 
-      thisWidget.value = newValue;
-
       if (
         thisWidget.value !== newValue &&
         !isNaN(newValue) &&
-        thisWidget.value <= settings.amountWidget.defaultMax &&
-        thisWidget.value >= settings.amountWidget.defaultMin
+        newValue <= settings.amountWidget.defaultMax &&
+        newValue >= settings.amountWidget.defaultMin
       ) {
         console.log(newValue);
         console.log(thisWidget.value !== newValue);
         console.log(!isNaN(newValue));
 
         thisWidget.value = newValue;
+      } else {
+        thisWidget.value != newValue;
       }
+      thisWidget.input.value = thisWidget.value;
       thisWidget.announce();
     }
 
     initActions() {
       const thisWidget = this;
 
-      thisWidget.input.addEventListener(
-        'change',
-        thisWidget.setValue(thisWidget.input.value)
-      );
+      thisWidget.input.addEventListener('change', function () {
+        thisWidget.setValue(thisWidget.input.value);
+      });
       thisWidget.linkDecrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.input.value--);
+        thisWidget.setValue(thisWidget.value - 1);
       });
       thisWidget.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
-        thisWidget.setValue(thisWidget.input.value++);
+        thisWidget.setValue(thisWidget.value + 1);
       });
     }
   }
@@ -331,6 +332,7 @@
       thisCart.product = [];
 
       thisCart.getElements(element);
+      thisCart.initActions();
 
       console.log('newCart', thisCart);
     }
@@ -340,12 +342,19 @@
       thisCart.dom = {};
       // console.log(thisCart.dom);
       thisCart.dom.wrapper = element;
-      // console.log(thisCart.dom.wrapper);
+      console.log(thisCart.dom.wrapper);
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(
         select.cart.toggleTrigger
       );
-      // console.log(thisCart.dom.toggleTrigger);
+      console.log(thisCart.dom.toggleTrigger);
       // console.log(select.cart.toggleTrigger);
+    }
+    initActions() {
+      const thisCart = this;
+
+      thisCart.dom.wrapper.addEventListener('click', function () {
+        thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
     }
   }
   const app = {
