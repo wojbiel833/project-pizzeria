@@ -293,7 +293,7 @@
         // for every option in this category
         for (let optionId in param.options) {
           // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
-          const option = param.options[optionId];
+          // const option = param.options[optionId];
           // console.log(optionId, option);
           // access to[param]-[option]' with images
 
@@ -389,7 +389,7 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      // console.log('newCart', thisCart);
+      console.log('newCart', thisCart);
     }
     getElements(element) {
       const thisCart = this;
@@ -429,8 +429,36 @@
       /* add element to menu */
       cartContainer.appendChild(thisCart.element);
       // pushing info to an array
-      thisCart.products.push(menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDom)); // thisCart.element? zamiast generatedDom
       // console.log('thisCart.products:', thisCart.products);
+    }
+  }
+  class CartProduct {
+    constuctor(menuProduct, element) {
+      const thisCartProduct = this;
+
+      thisCartProduct.product = {};
+      thisCartProduct.product.dom = element;
+      thisCartProduct.product.id = menuProduct.id;
+      thisCartProduct.product.name = menuProduct.data.name;
+      thisCartProduct.product.amount = menuProduct.amountWidget.value;
+      thisCartProduct.product.priceSingle = thisCartProduct.priceSingle;
+      thisCartProduct.product.price =
+        thisCartProduct.data.price * menuProduct.amountWidget.value;
+      thisCartProduct.product.params = menuProduct.prepareCartProductsParams();
+
+      thisCartProduct.getElements(element);
+    }
+    getElelments(element) {
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = select.cartProduct.amountWidget;
+      thisCartProduct.dom.price = select.cartProduct.price;
+      thisCartProduct.dom.edit = select.cartProduct.edit;
+      thisCartProduct.dom.remove = select.cartProduct.remove;
+      console.log('thisCartProduct:', thisCartProduct);
     }
   }
   const app = {
