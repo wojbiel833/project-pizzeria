@@ -431,6 +431,28 @@
       // pushing info to an array
       thisCart.products.push(new CartProduct(menuProduct, thisCart.element)); // thisCart.element? zamiast generatedDom
       // console.log('thisCart.products:', thisCart.products);
+
+      thisCart.update();
+    }
+    update() {
+      const thisCart = this;
+      const deliveryFee = select.cart.totalPrice;
+      let totalNumber = 0;
+      let subtotalPrice = 0;
+
+      for (let product of thisCart.products) {
+        totalNumber += select.widgets.amount.input.value;
+      }
+      if (subtotalPrice > 0) {
+        thisCart.totalPrice = totalNumber + deliveryFee;
+      } else {
+        thisCart.totalPrice = 0;
+      }
+      console.log(thisCart);
+      console.log(deliveryFee);
+      console.log(totalNumber);
+      console.log(subtotalPrice);
+      console.log(thisCart.totalPrice);
     }
   }
   class CartProduct {
