@@ -72,6 +72,11 @@
     cart: {
       defaultDeliveryFee: 20,
     },
+    db: {
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+    },
   };
 
   const templates = {
@@ -465,7 +470,7 @@
       for (let product of thisCart.products) {
         totalNumber += product.amount; // cena(szt*cena pord.)
         console.log(product.amount);
-        subtotalPrice = totalNumber * //cena poszczególnego produktu
+        subtotalPrice = totalNumber; // * cena poszczególnego produktu
       }
       if (subtotalPrice > 0) {
         deliveryFee.innerHTML = 20;
@@ -495,6 +500,8 @@
       thisCartProduct.product.price =
         thisCartProduct.data.price * menuProduct.amountWidget.value;
       thisCartProduct.product.params = menuProduct.prepareCartProductsParams();
+
+      console.log('thisCartProduct:', thisCartProduct.product);
 
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
@@ -555,14 +562,32 @@
       const thisApp = this;
       // console.log(`thisApp.data:`, thisApp.data);
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(
+          thisApp.data.products[productData].id,
+          thisApp.data.products[productData]
+        );
       }
     },
 
     initData: function () {
       const thisApp = this;
+      const url = settings.db.url + '/' + settings.db.product;
+      thisApp.data = {};
 
-      thisApp.data = dataSource;
+      fetch(url)
+        .then(function (rawResopnse) {
+          return rawResopnse.json();
+        })
+        .then(function (parsedResponse) {
+          console.log('parsedResponse:', parsedResponse);
+
+          // save parsedResponse as thisApp.data.products
+          thisApp.data.products = parsedResponse;
+          // execute initMenu method
+          thisApp.initMenu();
+        });
+
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
 
     initCart: function () {
@@ -581,7 +606,6 @@
       console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initMenu();
       thisApp.initCart();
     },
   };

@@ -111,3 +111,8 @@ dataSource.products = {
     },
   },
 };
+// const myJSON = JSON.stringify(dataSource);
+// console.log(myJSON);
+/*
+Ważna uwaga – plik z danymi stworzyliśmy w katalogu src/db, ale serwer korzysta z pliku dist/db/app.json. Jeśli zechcesz ręcznie zmienić zawartość pliku z danymi, zmieniaj wyłącznie plik src/db/app.json. Zostanie on automatycznie skopiowany do dist/db, a API natychmiast zacznie korzystać z nowej wersji pliku. Wybraliśmy takie rozwiązanie, ponieważ już niedługo będziemy zapisywać zamówienia do API. Jako że jest to nasze testowe API, nie chcemy przechowywać w repozytorium testowych zamówień. Dlatego złożone zamówienia będą kasowane przy każdym uruchomieniu tasków watch i build.
+*/
