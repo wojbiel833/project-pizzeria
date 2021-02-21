@@ -74,7 +74,7 @@
     },
     db: {
       url: '//localhost:3131',
-      product: 'product',
+      product: 'products',
       order: 'order',
     },
   };
@@ -404,6 +404,7 @@
       thisCart.dom = {};
       // console.log(thisCart.dom);
       thisCart.dom.wrapper = element;
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
       // console.log(thisCart.dom.wrapper);
       thisCart.dom.productList = select.containerOf.menu;
       console.log(thisCart.dom.productList);
@@ -428,12 +429,24 @@
         select.cart.totalNumber
       ); //ilosc sztuk w kółku
       // console.log(thisCart.dom.totalNumber);
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(
+        select.cart.address
+      );
+      console.log(thisCart.dom.address);
+      thisCart.dom.phone = thisCart.dom.wrapper.querySelector(
+        select.cart.phone
+      );
+      console.log(thisCart.dom.phone);
     }
     initActions() {
       const thisCart = this;
 
       thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+      });
+
+      thisCart.dom.form.addEventListener('submit', function () {
+        event.preventDefault();
       });
       // thisCart.dom.productList.addEventListener('upadted', function () {
       //   thisCart.update();
@@ -485,6 +498,21 @@
       console.log(totalNumber);
       console.log(subtotalPrice);
       console.log(thisCart.totalPrice);
+    }
+    sendOrder() {
+      const thisCart = this;
+      const url = settings.db.url + '/' + settings.db.order;
+
+      thisCart.playload.products = {};
+      thisCart.playload.products.address = thisCart.dom.address.value;
+      thisCart.playload.products.phone = thisCart.dom.phone.value;
+      thisCart.playload.products.totalPrice = thisCart.dom.totalPrice;
+      thisCart.playload.products.subtotalPrice = thisCart.dom.subtotalPrice;
+      thisCart.playload.products.totalNumber = thisCart.dom.totalNumber;
+      thisCart.playload.products.deliveryFee = thisCart.dom.deliveryFee;
+      thisCart.playload.products.products = [];
+
+      console.log(thisCart.playload.products);
     }
   }
   class CartProduct {
