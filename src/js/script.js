@@ -503,16 +503,36 @@
       const thisCart = this;
       const url = settings.db.url + '/' + settings.db.order;
 
-      thisCart.playload.products = {};
-      thisCart.playload.products.address = thisCart.dom.address.value;
-      thisCart.playload.products.phone = thisCart.dom.phone.value;
-      thisCart.playload.products.totalPrice = thisCart.dom.totalPrice;
-      thisCart.playload.products.subtotalPrice = thisCart.dom.subtotalPrice;
-      thisCart.playload.products.totalNumber = thisCart.dom.totalNumber;
-      thisCart.playload.products.deliveryFee = thisCart.dom.deliveryFee;
-      thisCart.playload.products.products = [];
+      thisCart.payload = {};
+      thisCart.payload.address = thisCart.dom.address.value;
+      thisCart.payload.phone = thisCart.dom.phone.value;
+      thisCart.payload.totalPrice = thisCart.dom.totalPrice;
+      thisCart.payload.subtotalPrice = thisCart.dom.subtotalPrice;
+      thisCart.payload.totalNumber = thisCart.dom.totalNumber;
+      thisCart.payload.deliveryFee = thisCart.dom.deliveryFee;
+      thisCart.payload.products = [];
 
-      console.log(thisCart.playload.products);
+      for (let prod of thisCart.products) {
+        thisCart.payload.products.push(prod.getData());
+      }
+
+      console.log(thisCart.playload);
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(thisCart.payload),
+      };
+
+      fetch(url, options)
+        .then(function (resopnse) {
+          return resopnse.json();
+        })
+        .then(function (parsedResponse) {
+          console.log('parsedResponse:', parsedResponse);
+        });
     }
   }
   class CartProduct {
@@ -583,6 +603,21 @@
         event.preventDefault();
         thisCartProduct.remove();
       });
+    }
+    getData() {
+      const thisCartProduct = this;
+
+      thisCartProduct.readyToSend = {};
+      thisCartProduct.readyToSend.id = thisCartProduct.id;
+      thisCartProduct.readyToSend.name = thisCartProduct.data.name;
+      thisCartProduct.readyToSend.amount = thisCartProduct.amountWidget.value;
+      thisCartProduct.readyToSend.priceSingle = thisCartProduct.priceSingle;
+      thisCartProduct.readyToSend.price =
+        thisCartProduct.data.price * thisCartProduct.amountWidget.value;
+      thisCartProduct.readyToSend.params = thisCartProduct.prepareCartProductsParams();
+
+      return thisCartProduct.readyToSend;
+      // console.log(thisCartProduct.readyToSend);
     }
   }
   const app = {
