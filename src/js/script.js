@@ -321,9 +321,11 @@
       const thisWidget = this;
 
       thisWidget.getElements(element);
-      thisWidget.input.value = settings.amountWidget.defaultValue;
-      thisWidget.setValue(thisWidget.input.value);
+      if (thisWidget.input.value.length > 0)
+        thisWidget.setValue(thisWidget.input.value);
+      else thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
+      // console.log(thisWidget.input);
 
       // console.log('AmountWidget:', AmountWidget);
       // console.log('constructor arguments:', element);
@@ -433,11 +435,11 @@
       thisCart.dom.address = thisCart.dom.wrapper.querySelector(
         select.cart.address
       );
-      console.log(thisCart.dom.address);
+      // console.log(thisCart.dom.address);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(
         select.cart.phone
       );
-      console.log(thisCart.dom.phone);
+      // console.log(thisCart.dom.phone);
     }
     initActions() {
       const thisCart = this;
@@ -475,7 +477,7 @@
       cartContainer.appendChild(thisCart.element);
       // pushing info to an array
       thisCart.products.push(new CartProduct(menuProduct, thisCart.element)); // thisCart.element? zamiast generatedDom
-      console.log('thisCart.products:', thisCart.products);
+      // console.log('thisCart.products:', thisCart.products);
 
       thisCart.update();
     }
@@ -487,7 +489,7 @@
 
       for (let product of thisCart.products) {
         thisCart.totalNumber += product.amount; // cena(szt*cena pord.)
-        console.log(product.amount);
+        // console.log(product.amount);
         thisCart.subtotalPrice += product.price; // * cena poszczególnego produktu
       }
 
@@ -505,18 +507,18 @@
       }
       thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber; // * ?
-      console.log(thisCart.dom.totalNumber);
+      // console.log(thisCart.dom.totalNumber);
     }
-    remove(menuProduct) {
+    remove(product) {
       const thisCart = this;
-
-      const indexOfproduct = thisCart.indexOf(menuProduct);
-      console.log(indexOfproduct);
-
-      // if (thisCart.products.includes(thisCart.product))
-      //   thisCart.products.remove(thisCart.product);
-      thisCart.dom.productList.innerHTML = '';
-      // thisCart.product =
+      // staramy się ustalić pozycję produktu w tablicy
+      const elementOfIndex = thisCart.products.indexOf(product);
+      console.log(elementOfIndex);
+      // usuwamy cały div, który reprezentował produkt
+      product.dom.wrapper.remove();
+      // usuwamy z tablicy jeden produkt z pozycji elementOfIndex
+      thisCart.products.splice(elementOfIndex, 1);
+      // kazemy js-owi od nowa przeliczyc koszty itp.
       thisCart.update();
     }
     sendOrder() {
@@ -560,12 +562,12 @@
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
       thisCartProduct.amount = menuProduct.amount;
-      console.log(thisCartProduct.amount);
+      // console.log(thisCartProduct.amount);
       thisCartProduct.inputValue = element.querySelector(
         select.widgets.amount.input
       );
-      console.log(thisCartProduct.inputValue);
-      console.log(thisCartProduct.inputValue.value);
+      // console.log(thisCartProduct.inputValue);
+      // console.log(thisCartProduct.inputValue.value);
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.price = menuProduct.price * menuProduct.amount;
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
@@ -584,7 +586,7 @@
       thisCartProduct.dom.amountWidget = element.querySelector(
         select.cartProduct.amountWidget
       );
-      console.log(thisCartProduct.dom.amountWidget);
+      // console.log(thisCartProduct.dom.amountWidget);
       thisCartProduct.dom.price = element.querySelector(
         select.cartProduct.price
       );
@@ -592,7 +594,7 @@
       thisCartProduct.dom.remove = element.querySelector(
         select.cartProduct.remove
       );
-      console.log(thisCartProduct.dom);
+      // console.log(thisCartProduct.dom);
     }
     initAmountWidget() {
       const thisCartProduct = this;
@@ -635,12 +637,13 @@
       const thisCartProduct = this;
 
       thisCartProduct.readyToSend = {};
-      thisCartProduct.readyToSend.id = thisCartProduct.id;
+      // thisCartProduct.readyToSend.id = thisCartProduct.id;
       thisCartProduct.readyToSend.name = thisCartProduct.name;
       thisCartProduct.readyToSend.amount = thisCartProduct.amountWidget.value;
       thisCartProduct.readyToSend.priceSingle = thisCartProduct.priceSingle;
       thisCartProduct.readyToSend.price =
-        thisCartProduct.price * thisCartProduct.amountWidget.value;
+        thisCartProduct.readyToSend.priceSingle *
+        thisCartProduct.readyToSend.amount;
       thisCartProduct.readyToSend.params = JSON.parse(
         JSON.stringify(thisCartProduct.params)
       );
