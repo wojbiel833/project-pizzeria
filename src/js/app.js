@@ -109,7 +109,7 @@
       const thisProduct = this;
       /* generate HTML based on template */
       const generateHTML = templates.menuProduct(thisProduct.data);
-      // console.log(generateHTML);
+      console.log(generateHTML);
       /* create element usint utils.createElementFromHTML */
       thisProduct.element = utils.createDOMFromHTML(generateHTML);
       // console.log(thisProduct.element);
