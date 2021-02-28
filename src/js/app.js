@@ -1,4 +1,4 @@
-import { settings, select } from './settings.js'; //zawsze od ./ !!! {} kiedy wiecej niż jedna rzecz != default
+import { settings, select, classNames, templates } from './settings.js'; //zawsze od ./ !!! {} kiedy wiecej niż jedna rzecz != default
 import Product from './components/Product.js'; // default exported moze byc bez {}
 import Cart from './components/Cart.js';
 

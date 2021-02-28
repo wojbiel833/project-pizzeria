@@ -1,3 +1,5 @@
+import { utils } from './utils.js';
+
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
