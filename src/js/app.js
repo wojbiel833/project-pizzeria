@@ -1,9 +1,14 @@
 import { settings, select, classNames } from './settings.js'; //zawsze od ./ !!! {} kiedy wiecej niż jedna rzecz != default
 import Product from './components/Product.js'; // default exported moze byc bez {}
 import Cart from './components/Cart.js';
-// import { formatters } from 'stylelint';
+import Booking from './components/Booking.js';
 
 const app = {
+  initBooking: function () {
+    const bookingWrapper = document.querySelector(select.containerOf.booking);
+
+    const booking = new Booking(bookingWrapper);
+  },
   initPages: function () {
     const thisApp = this;
 
@@ -106,6 +111,7 @@ const app = {
     thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
+    thisApp.initBooking();
   },
 };
 
