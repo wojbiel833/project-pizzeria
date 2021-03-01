@@ -1,8 +1,56 @@
-import { settings, select, classNames, templates } from './settings.js'; //zawsze od ./ !!! {} kiedy wiecej niż jedna rzecz != default
+import { settings, select, classNames } from './settings.js'; //zawsze od ./ !!! {} kiedy wiecej niż jedna rzecz != default
 import Product from './components/Product.js'; // default exported moze byc bez {}
 import Cart from './components/Cart.js';
+// import { formatters } from 'stylelint';
 
 const app = {
+  initPages: function () {
+    const thisApp = this;
+
+    thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    const idFromHash = window.location.hash.replace('#/', '');
+    // console.log(idFromHash);
+
+    let pageMatchingHash = thisApp.pages[0].id;
+
+    for (const page of thisApp.pages) {
+      if (page.id == idFromHash) {
+        pageMatchingHash = page.id;
+        break;
+      }
+    }
+    thisApp.activatePage(pageMatchingHash); // zmienić na thisApp.pages[0].id
+    // console.log(pageMatchingHash);
+  },
+  activatePage: function (pageId) {
+    const thisApp = this;
+    //add class avtive to matching pages, remove from non-matching
+    for (const page of thisApp.pages) {
+      page.classList.toggle(classNames.pages.active, page.id == pageId);
+    }
+    //add class avtive to matching links, remove from non-matching
+    for (const link of thisApp.navLinks) {
+      link.classList.toggle(
+        classNames.nav.active,
+        link.getAttribute('href') == '#' + pageId
+      );
+    }
+    for (const link of thisApp.navLinks) {
+      link.addEventListener('click', function (event) {
+        const clickedElement = this;
+        event.preventDefault();
+
+        // get page id from href att
+        const id = clickedElement.getAttribute('href').replace('#', '');
+        // call thisApp.activePage with that id
+        thisApp.activatePage(id);
+        // change URL hash
+        window.location.hash = '#/' + id;
+      });
+    }
+  },
+
   initMenu: function () {
     const thisApp = this;
     // console.log(`thisApp.data:`, thisApp.data);
@@ -24,7 +72,7 @@ const app = {
         return rawResopnse.json();
       })
       .then(function (parsedResponse) {
-        console.log('parsedResponse:', parsedResponse);
+        // console.log('parsedResponse:', parsedResponse);
 
         // save parsedResponse as thisApp.data.products
         thisApp.data.products = parsedResponse;
@@ -32,7 +80,7 @@ const app = {
         thisApp.initMenu();
       });
 
-    console.log('thisApp.data', JSON.stringify(thisApp.data));
+    // console.log('thisApp.data', JSON.stringify(thisApp.data));
   },
 
   initCart: function () {
@@ -49,12 +97,13 @@ const app = {
 
   init: function () {
     const thisApp = this;
-    console.log('*** App starting ***');
-    console.log('thisApp:', thisApp);
-    console.log('classNames:', classNames);
-    console.log('settings:', settings);
-    console.log('templates:', templates);
+    // console.log('*** App starting ***');
+    // console.log('thisApp:', thisApp);
+    // console.log('classNames:', classNames);
+    // console.log('settings:', settings);
+    // console.log('templates:', templates);
 
+    thisApp.initPages();
     thisApp.initData();
     thisApp.initCart();
   },
