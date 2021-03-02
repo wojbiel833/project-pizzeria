@@ -1,0 +1,38 @@
+* [33mfca0c58[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m Add booking class
+* [33md68cbcd[m Fix sending product do cart functionality
+* [33mfada762[m Add subpages functionality
+* [33maefef62[m Change files
+* [33m098e9aa[m Import/export the rest
+* [33m4744c62[m Divide files && import/export some
+* [33m7da83ca[m Rename files & delete data.js
+* [33mc4bdee5[m Fix total number amount & delate product from cart
+* [33mb3f1510[m Fix  total number amount
+* [33me9b4e2f[m Repair sending order to serv function
+* [33mfeba313[m Repair prices display in cart
+* [33m70542d6[m Add sendOrder
+* [33m51c34ac[m Add send func
+* [33m0c39274[m Add server connection
+* [33m739b309[m Add update method c.d.
+* [33m6939247[m Add update method
+* [33m0f4d1e6[m Add amountWidget in CartProduct
+* [33mccdd44e[m Add cart product class
+* [33mfdb0706[m Add order to a CartProduct array
+* [33m5592dc7[m Add order adding to cart functionality
+* [33mf0bf8ae[m Add prepareCartProduct & prepareCartProductsParams methods
+* [33m5985bd4[m Fix setValue and cart toggling
+* [33mb8544aa[m Repair setValue
+* [33mb6681e9[m Beginn chart class
+* [33m0a01d91[m Change files
+* [33m1b09127[m Add setValue, initActions methods
+* [33m0fc83a8[m Repair images disply
+* [33m4711097[m Add images disply done
+* [33m94cbfc4[m Add images disply ALMOST done
+*   [33m6b94767[m Add images display settings
+[32m|[m[33m\[m  
+[32m|[m * [33m575beab[m Add inirOrderForm & processOrder functions
+* [33m|[m [33m9de2608[m Add images display
+* [33m|[m [33m486a459[m Add initOrderForm & processOrder functions
+[33m|[m[33m/[m  
+* [33m028bb6f[m Repair initAccordion
+* [33mf4abf8e[m Add renderInMenu & initAccordion
+* [33mfe000df[m Init project
