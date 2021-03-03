@@ -22,12 +22,21 @@ class Booking {
     thisBooking.dom.hoursAmount = document.querySelector(
       select.booking.hoursAmount
     );
+    thisBooking.dom.datePicker = document.querySelector(
+      select.widgets.datePicker.wrapper
+    );
+    thisBooking.dom.hourPicker = document.querySelector(
+      select.widgets.hourPicker.wrapper
+    );
   }
   initWidgets() {
     const thisBooking = this;
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+
+    thisBooking.datePicker = new AmountWidget(thisBooking.dom.datePicker);
+    thisBooking.hourPicker = new AmountWidget(thisBooking.dom.hourPicker);
 
     thisBooking.dom.peopleAmount.addEventListener('click', function () {});
     thisBooking.dom.hoursAmount.addEventListener('click', function () {});

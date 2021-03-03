@@ -5,9 +5,10 @@ import Booking from './components/Booking.js';
 
 const app = {
   initBooking: function () {
+    const thisApp = this;
     const bookingWrapper = document.querySelector(select.containerOf.booking);
 
-    const booking = new Booking(bookingWrapper);
+    thisApp.booking = new Booking(bookingWrapper);
   },
   initPages: function () {
     const thisApp = this;
