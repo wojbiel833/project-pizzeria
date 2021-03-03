@@ -12,12 +12,14 @@
   &__header {
     @include flex(row, center, space-between);
     margin-bottom: ($base-size * 2);
+
     cursor: pointer;
   }
 
   &__name {
-    // @extend .h1;
+    @extend .h1;
     position: relative;
+
   }
 
   &__icon {
@@ -30,7 +32,7 @@
   }
 
   &__base-price {
-    // @extend .h1;
+    @extend .h1;
     font-weight: $font-light;
   }
 
@@ -51,7 +53,7 @@
   }
 
   &__params-title {
-    // @extend .h2;
+    @extend .h2;
     margin: ($base-size * 2) 0;
   }
 
@@ -79,7 +81,7 @@
       height: 220px;
     }
 
-    > img {
+    >img {
       @include center();
       height: auto;
       opacity: 0;
@@ -88,7 +90,9 @@
       &.active {
         opacity: 1;
       }
+
     }
+
   }
 
   &.active {
@@ -104,7 +108,9 @@
     .product__icon {
       transform: rotate(180deg);
     }
+
   }
+
 }
 
 .widget-amount {
@@ -115,4 +121,5 @@
     margin: 0 ($base-size / 2);
     padding: 0;
   }
+
 }
