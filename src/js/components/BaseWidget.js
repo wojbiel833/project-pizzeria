@@ -1,3 +1,5 @@
+import DatePicker from './DatePicker.js';
+
 class BaseWidget {
   constructor(wrapperElement, initialValue) {
     const thisWidget = this;
