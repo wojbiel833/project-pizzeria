@@ -52,34 +52,27 @@ class Booking {
         '&' +
         params.eventsRepeat.join('&'),
     };
-    fetch(urls.booking).then(function (bookingsResponse) {
-      return bookingsResponse.json();
-    });
-    //   .then(function (bookings) {
-    //     console.log(bookings);
-    //   });
     console.log(urls);
-    // Promise.all([
-    //   fetch(urls.booking),
-    //   fetch(urls.eventsCurrent),
-    //   fetch(urls.eventsRepeat),
-    // ]);
-    // fetch(urls.booking)
-    //   .then(function (allResponses) {
-    //     const bookingsResponse = allResponses[0];
-    //     const eventsCurrentResponse = allResponses[1];
-    //     const eventsRepeatResponse = allResponses[2];
-    //     return Promise.all([
-    //       bookingsResponse.json(),
-    //       eventsCurrentResponse.json(),
-    //       eventsRepeatResponse.json(),
-    //     ]);
-    //   })
-    //   .then(function ([bookings, eventsCurrent, eventsRepeat]) {
-    //     console.log(bookings);
-    //     console.log(eventsCurrent);
-    //     console.log(eventsRepeat);
-    //   });
+    Promise.all([
+      fetch(urls.booking),
+      fetch(urls.eventsCurrent),
+      fetch(urls.eventsRepeat),
+    ])
+      .then(function (allResponses) {
+        const bookingsResponse = allResponses[0];
+        const eventsCurrentResponse = allResponses[1];
+        const eventsRepeatResponse = allResponses[2];
+        return Promise.all([
+          bookingsResponse.json(),
+          eventsCurrentResponse.json(),
+          eventsRepeatResponse.json(),
+        ]);
+      })
+      .then(function ([bookings, eventsCurrent, eventsRepeat]) {
+        console.log(bookings);
+        console.log(eventsCurrent);
+        console.log(eventsRepeat);
+      });
   }
 
   render(element) {

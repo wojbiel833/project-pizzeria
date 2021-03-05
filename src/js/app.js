@@ -7,8 +7,8 @@ const app = {
   initBooking: function () {
     const thisApp = this;
     const bookingWrapper = document.querySelector(select.containerOf.booking);
-
-    new Booking(bookingWrapper);
+    console.log(bookingWrapper);
+    thisApp.booking = new Booking(bookingWrapper);
   },
   initPages: function () {
     const thisApp = this;
