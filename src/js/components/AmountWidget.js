@@ -51,7 +51,7 @@ class AmountWidget extends BaseWidget {
   initActions() {
     const thisWidget = this;
 
-    console.log(thisWidget.dom);
+    // console.log(thisWidget.dom.input);
 
     thisWidget.dom.input.addEventListener('change', function () {
       // thisWidget.setValue(thisWidget.dom.input.value);

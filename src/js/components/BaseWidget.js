@@ -1,4 +1,4 @@
-import DatePicker from './DatePicker.js';
+// import DatePicker from './DatePicker.js';
 
 class BaseWidget {
   constructor(wrapperElement, initialValue) {
