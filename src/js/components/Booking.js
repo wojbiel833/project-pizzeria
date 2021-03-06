@@ -1,4 +1,4 @@
-import { select, templates, settings } from '../settings.js';
+import { select, templates, settings, classNames } from '../settings.js';
 import utils from '../utils.js';
 import AmountWidget from './AmountWidget.js';
 import DatePicker from './DatePicker.js';
@@ -35,21 +35,21 @@ class Booking {
     const urls = {
       booking:
         settings.db.url +
-        '?' +
+        '/' +
         settings.db.booking +
-        '&' +
+        '?' +
         params.booking.join('&'),
       eventsCurrent:
         settings.db.url +
-        '?' +
+        '/' +
         settings.db.event +
-        '&' +
+        '?' +
         params.eventsCurrent.join('&'),
       eventsRepeat:
         settings.db.url +
-        '?' +
+        '/' +
         settings.db.event +
-        '&' +
+        '?' +
         params.eventsRepeat.join('&'),
     };
     console.log(urls);
@@ -72,7 +72,95 @@ class Booking {
         console.log(bookings);
         console.log(eventsCurrent);
         console.log(eventsRepeat);
+
+        thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
+  }
+  parseData(bookings, eventsCurrent, eventsRepeat) {
+    const thisBooking = this;
+
+    thisBooking.booked = {};
+
+    for (let item of bookings)
+      thisBooking.makeBookied(item.date, item.hour, item.duration, item.table);
+
+    for (let item of eventsCurrent)
+      thisBooking.makeBookied(item.date, item.hour, item.duration, item.table);
+
+    const minDate = thisBooking.datePicker.minDate;
+    const maxDate = thisBooking.datePicker.maxDate;
+
+    for (let item of eventsRepeat) {
+      if (item.repeat == 'daily') {
+        for (
+          let loopDate = minDate;
+          loopDate <= maxDate;
+          loopDate = utils.addDays(loopDate, 1)
+        ) {
+          thisBooking.makeBookied(
+            utils.dateToStr(loopDate),
+            item.hour,
+            item.duration,
+            item.table
+          );
+        }
+      }
+      // console.log('thisBooking.booked', thisBooking.booked);
+      thisBooking.updateDOM();
+    }
+  }
+  makeBookied(date, hour, duration, table) {
+    const thisBooking = this;
+
+    if (typeof thisBooking.booked[date] == 'undefined') {
+      thisBooking.booked[date] = {};
+    }
+
+    const startHour = utils.hourToNumber(hour);
+
+    for (
+      let hourBlock = startHour;
+      hourBlock < startHour + duration;
+      hourBlock += 0.5
+    ) {
+      console.log('loop', hourBlock);
+      if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
+        thisBooking.booked[date][hourBlock] = [];
+      }
+      thisBooking.booked[date][hourBlock].push(table);
+    }
+  }
+  updateDOM() {
+    const thisBooking = this;
+
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.date = utils.hourToNumber(thisBooking.hourPicker.value);
+
+    let allAvailable = false;
+
+    if (
+      typeof thisBooking.booked[thisBooking.date] == 'undefined' ||
+      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] ==
+        'undefined'
+    ) {
+      allAvailable = true;
+    }
+
+    for (let table of thisBooking.dom.tables) {
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      if (!isNaN(tableId)) {
+        tableId = parseInt(tableId);
+      }
+
+      if (
+        !allAvailable &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
+      ) {
+        table.classList.add(classNames.booking.tableBooked);
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+      }
+    }
   }
 
   render(element) {
@@ -94,6 +182,9 @@ class Booking {
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(
       select.widgets.hourPicker.wrapper
     );
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
+      select.booking.tables
+    );
   }
   initWidgets() {
     const thisBooking = this;
@@ -106,6 +197,9 @@ class Booking {
 
     thisBooking.dom.hoursAmount.addEventListener('click', function () {});
     thisBooking.dom.peopleAmount.addEventListener('click', function () {});
+    thisBooking.dom.wrapper.addEventListener('updated', function () {
+      thisBooking.updateDOM();
+    });
   }
 }
 
