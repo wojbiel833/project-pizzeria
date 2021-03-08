@@ -82,10 +82,10 @@ class Booking {
     thisBooking.booked = {};
 
     for (let item of bookings)
-      thisBooking.makeBookied(item.date, item.hour, item.duration, item.table);
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
 
     for (let item of eventsCurrent)
-      thisBooking.makeBookied(item.date, item.hour, item.duration, item.table);
+      thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);
 
     const minDate = thisBooking.datePicker.minDate;
     const maxDate = thisBooking.datePicker.maxDate;
@@ -97,7 +97,7 @@ class Booking {
           loopDate <= maxDate;
           loopDate = utils.addDays(loopDate, 1)
         ) {
-          thisBooking.makeBookied(
+          thisBooking.makeBooked(
             utils.dateToStr(loopDate),
             item.hour,
             item.duration,
@@ -109,7 +109,7 @@ class Booking {
       thisBooking.updateDOM();
     }
   }
-  makeBookied(date, hour, duration, table) {
+  makeBooked(date, hour, duration, table) {
     const thisBooking = this;
 
     if (typeof thisBooking.booked[date] == 'undefined') {
@@ -123,7 +123,7 @@ class Booking {
       hourBlock < startHour + duration;
       hourBlock += 0.5
     ) {
-      console.log('loop', hourBlock);
+      // console.log('loop', hourBlock);
       if (typeof thisBooking.booked[date][hourBlock] == 'undefined') {
         thisBooking.booked[date][hourBlock] = [];
       }
@@ -150,7 +150,9 @@ class Booking {
     }
 
     for (let table of thisBooking.dom.tables) {
+      console.log(table);
       let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      console.log(tableId);
       if (!isNaN(tableId)) {
         tableId = parseInt(tableId);
       }
