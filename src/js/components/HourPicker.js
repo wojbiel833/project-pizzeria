@@ -5,11 +5,13 @@ import utils from '../utils.js';
 class HourPicker extends BaseWidget {
   constructor(wrapper) {
     super(wrapper, settings.hours.open);
+    // console.log(settings.hours.open);
     const thisWidget = this;
 
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(
       select.widgets.hourPicker.input
     );
+    // console.log(thisWidget.dom.input);
     thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(
       select.widgets.hourPicker.output
     );
@@ -27,6 +29,8 @@ class HourPicker extends BaseWidget {
   }
 
   parseValue(value) {
+    // console.log(value);
+    // console.log(utils.numberToHour(value));
     return utils.numberToHour(value);
   }
 

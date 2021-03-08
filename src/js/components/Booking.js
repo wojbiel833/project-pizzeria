@@ -30,7 +30,7 @@ class Booking {
       eventsRepeat: [settings.db.repeatParam, endDateParam],
     };
 
-    console.log('getData params:', params);
+    // console.log('getData params:', params);
 
     const urls = {
       booking:
@@ -52,7 +52,7 @@ class Booking {
         '?' +
         params.eventsRepeat.join('&'),
     };
-    console.log(urls);
+    // console.log(urls);
     Promise.all([
       fetch(urls.booking),
       fetch(urls.eventsCurrent),
@@ -69,9 +69,9 @@ class Booking {
         ]);
       })
       .then(function ([bookings, eventsCurrent, eventsRepeat]) {
-        console.log(bookings);
-        console.log(eventsCurrent);
-        console.log(eventsRepeat);
+        // console.log(bookings);
+        // console.log(eventsCurrent);
+        // console.log(eventsRepeat);
 
         thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
       });
@@ -134,7 +134,10 @@ class Booking {
     const thisBooking = this;
 
     thisBooking.date = thisBooking.datePicker.value;
-    thisBooking.date = utils.hourToNumber(thisBooking.hourPicker.value);
+    // console.log(thisBooking.date);
+    // console.log(thisBooking.hourPicker.value);
+    thisBooking.hour = utils.numberToHour(thisBooking.hourPicker.value);
+    // console.log(thisBooking.hour);
 
     let allAvailable = false;
 
