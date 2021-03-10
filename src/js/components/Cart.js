@@ -11,7 +11,7 @@ class Cart {
     thisCart.getElements(element);
     thisCart.initActions();
 
-    // console.log('newCart', thisCart);
+    // console .log('newCart', thisCart);
   }
   getElements(element) {
     const thisCart = this;

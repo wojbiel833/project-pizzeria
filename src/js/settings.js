@@ -68,6 +68,8 @@ export const select = {
     button: '.order-confirmation button',
     phone: '.order-confirmation input[name="phone"]',
     address: '.order-confirmation input[name="address"]',
+    water: '.booking-options div div[class="checkbox"] input[value="water"]',
+    bread: '.booking-options div div[class="checkbox"] input[value="bread"]',
   },
   nav: {
     links: '.main-nav a',
