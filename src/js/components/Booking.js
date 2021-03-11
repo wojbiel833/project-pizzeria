@@ -140,7 +140,7 @@ class Booking {
     thisBooking.bookingInfo = {};
     thisBooking.bookingInfo.date = thisBooking.datePicker.value;
     thisBooking.bookingInfo.hour = thisBooking.hourPicker.value;
-    thisBooking.bookingInfo.table = thisBooking.table; // ????????????
+    thisBooking.bookingInfo.table = thisBooking.table;
     thisBooking.bookingInfo.duration = thisBooking.hoursAmount.correctValue;
     thisBooking.bookingInfo.ppl = thisBooking.peopleAmount.correctValue;
     thisBooking.bookingInfo.starters = thisBooking.starters;
@@ -160,7 +160,7 @@ class Booking {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(thisBooking.bookingInf),
+      body: JSON.stringify(thisBooking.bookingInfo),
     };
 
     fetch(url, options)
@@ -189,47 +189,27 @@ class Booking {
 
   initTables(event) {
     const thisBooking = this;
-    // console.log(thisBooking.dom.tables);
-    // PICK A TABLE
-    if (event.target.classList.contains('booked')) {
-      alert('This table is already booked');
-    } else if (
-      !event.target.classList.contains('booked') &&
-      event.target.classList.contains('table')
-    ) {
-      // add 'active' class
-      thisBooking.dom.tables.forEach(function (table) {
-        // console.log(table);
-        table.classList.remove(classNames.booking.tableClicked);
-        event.target.classList.add(classNames.booking.tableClicked);
-      });
-      // put table info (nr) to Booking as an property
-      thisBooking.table = Number(
-        event.target.getAttribute(settings.booking.tableIdAttribute)
+
+    const table = event.target;
+
+    /* check if table is booked */
+    if (!table.classList.contains(classNames.booking.tableBooked)) {
+      /* find previously picked table */
+      const activeTable = thisBooking.dom.restaurant.querySelector(
+        select.booking.tableClicked
       );
-      // thisBooking.table.push(tableId);
-      console.log(thisBooking.table);
-      if (
-        !thisBooking.booked[thisBooking.date][thisBooking.hour].includes(
-          thisBooking.table
-        )
-      ) {
-        thisBooking.booked[thisBooking.date][thisBooking.hour].push(
-          thisBooking.table
+      if (activeTable)
+        activeTable.classList.remove(classNames.booking.tableClicked);
+      if (table !== activeTable) {
+        table.classList.add(classNames.booking.tableClicked);
+        this.table = parseInt(
+          table.getAttribute(settings.booking.tableIdAttribute)
         );
       } else {
-        const tableIndex = thisBooking.booked[thisBooking.date][
-          thisBooking.hour
-        ].indexOf(thisBooking.table);
-        // console.log(tableIndex);
-        thisBooking.booked[thisBooking.date][thisBooking.hour].splice(
-          tableIndex,
-          1
-        );
+        activeTable.classList.remove(classNames.booking.tableClicked);
+        this.table = null;
       }
-      console.log(thisBooking.booked);
-    }
-    thisBooking.updateDOM();
+    } else alert('This table is already booked');
   }
 
   updateDOM() {
@@ -266,6 +246,8 @@ class Booking {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
+        table.classList.remove(classNames.booking.tableClicked);
+        thisBooking.table = 'null';
       }
     }
   }
