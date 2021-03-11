@@ -1,0 +1,18 @@
+.home-wrapper {
+  margin: ($base-size * 3.5) auto;
+  padding: ($base-size * 6) ($base-size * 4);
+  background: $color-light;
+  border-bottom: 1px solid lighten($color-dark, 70%);
+  border-radius: $radius;
+}
+
+.two-in-row {
+  display: inline-flex;
+  flex-flow: inline nowrap;
+
+  img {
+    flex: 0 0 50%;
+    width: 48%;
+    justify-content: space-between;
+  }
+}
