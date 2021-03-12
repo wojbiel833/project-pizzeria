@@ -2,10 +2,15 @@ import { settings, select, classNames } from './settings.js'; //zawsze od ./ !!!
 import Product from './components/Product.js'; // default exported moze byc bez {}
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 const app = {
+  initHome: function () {
+    const homeWrapper = document.querySelector(select.containerOf.home);
+    new Home(homeWrapper);
+  },
   initBooking: function () {
-    const thisApp = this;
+    // const thisApp = this;
     const bookingWrapper = document.querySelector(select.containerOf.booking);
     // console.log(bookingWrapper);
     new Booking(bookingWrapper);
@@ -14,7 +19,9 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
+    console.log(thisApp.pages);
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    console.log(thisApp.navLinks);
     const idFromHash = window.location.hash.replace('#/', '');
     // console.log(idFromHash);
 
@@ -113,7 +120,10 @@ const app = {
     thisApp.initData();
     thisApp.initCart();
     thisApp.initBooking();
+    thisApp.initHome();
   },
 };
 
 app.init();
+
+export default app.js;

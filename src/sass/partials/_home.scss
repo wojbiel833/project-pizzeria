@@ -134,6 +134,7 @@
       transform: translateY(-50%);
 
       i {
+        color: #fff;
         margin: 0 10px 0 10px;
         z-index: 3;
 
@@ -141,13 +142,14 @@
           cursor: pointer;
           transform: scale(2.1);
           transition: 1s;
+
+          .fa-heart {
+            color: #e70000;
+          }
+          .fa-share-alt {
+            color: #0034d1;
+          }
         }
-      }
-      .fa-heart {
-        color: #e70000;
-      }
-      .fa-share-alt {
-        color: #0034d1;
       }
     }
     &:after {

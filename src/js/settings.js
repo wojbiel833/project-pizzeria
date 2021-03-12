@@ -11,6 +11,7 @@ export const select = {
     cart: '#cart',
     pages: '#pages',
     booking: '.booking-wrapper',
+    home: '.home-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -70,6 +71,10 @@ export const select = {
     address: '.order-confirmation input[name="address"]',
     water: '.booking-options div div[class="checkbox"] input[value="water"]',
     bread: '.booking-options div div[class="checkbox"] input[value="bread"]',
+  },
+  home: {
+    order: '.home-wrapper .order',
+    booking: '.home-wrapper .booking',
   },
   nav: {
     links: '.main-nav a',
