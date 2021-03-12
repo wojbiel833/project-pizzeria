@@ -71,6 +71,7 @@ export const select = {
     address: '.order-confirmation input[name="address"]',
     water: '.booking-options div div[class="checkbox"] input[value="water"]',
     bread: '.booking-options div div[class="checkbox"] input[value="bread"]',
+    tableClicked: '.object.table.active',
   },
   home: {
     order: '.home-wrapper .order',
