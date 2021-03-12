@@ -11,6 +11,7 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/vendor/flickity.css" media="screen">
 
     <link
       href="https://fonts.googleapis.com/css?family=Lato:400,300i,700%7COswald:300,500,700&amp;subset=latin-ext"
@@ -109,62 +110,50 @@
               <p>TUE-SUN, 12PM - 12AM</p>
             </div>
           </div>
-        </div>
 
-        <div id="carouselExampleSlidesOnly" class="review" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                class="d-block w-100"
-                src="/images/assets/pizza-3.jpg"
-                alt="First slide"
-              />
-              <div class="textReview">
-                <h5>Lorem ipsum dolor sit amet,</h5>
-                <p>
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat.
-                </p>
-              </div>
+
+        <div
+          class="carousel"
+          data-flickity='{ "autoPlay": true, "cellAlign": "left", "contain": true, "prevNextButtons": false }'
+        >
+          <div class="carousel-cell active">
+            <img src="/images/assets/pizza-3.jpg" alt="First slide" />
+            <div class="text-review">
+              <h5>Lorem ipsum dolor sit amet,</h5>
+              <p>
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.
+              </p>
             </div>
-            <div class="carousel-item">
-              <img
-                class="d-block w-100"
-                src="/images/assets/pizza-4.jpg"
-                alt="Second slide"
-              />
-              <div class="textReview">
-                <h5>Lorem ipsum dolor sit amet,</h5>
-                <p>
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat.
-                </p>
-              </div>
+          </div>
+          <div class="carousel-cell">
+            <img src="/images/assets/pizza-4.jpg" alt="Second slide" />
+            <div class="text-review">
+              <h5>Lorem ipsum dolor sit amet,</h5>
+              <p>
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.
+              </p>
             </div>
-            <div class="carousel-item">
-              <img
-                class="d-block w-100"
-                src="/images/assets/pizza-5.jpg"
-                alt="Third slide"
-              />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Lorem ipsum dolor sit amet,</h5>
-                <p>
-                  consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                  ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  ea commodo consequat.
-                </p>
-              </div>
+          </div>
+          <div class="carousel-cell">
+            <img src="/images/assets/pizza-5.jpg" alt="Third slide" />
+            <div class="text-review">
+              <h5>Lorem ipsum dolor sit amet,</h5>
+              <p>
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.
+              </p>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
 
     <script id="template-booking-widget" type="text/x-handlebars-template">
       <div class='booking-widget'>
@@ -409,7 +398,7 @@
 
       </article> <!-- .product -->
     </script>
-
+    <script src="/vendor/flickity.pkgd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script src="vendor/range-slider.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
