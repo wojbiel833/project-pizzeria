@@ -21,6 +21,11 @@
     height: 130px;
     object-fit: cover;
     border-radius: 5px;
+
+    &:hover p {
+      margin-top: -20px;
+      transition: 1s;
+    }
   }
 
   .booking {
@@ -32,6 +37,11 @@
     object-fit: cover;
     position: relative;
     border-radius: 5px;
+
+    &:hover p {
+      margin-top: -20px;
+      transition: 1s;
+    }
   }
 
   p {
@@ -46,10 +56,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    &:hover {
-      margin-top: -20px;
-      transition: 1s;
-    }
   }
 }
 
