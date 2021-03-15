@@ -174,7 +174,7 @@ class Booking {
 
         thisBooking.table = null;
       });
-    // console.log(thisBooking.booked);
+    console.log(thisBooking.booked);
   }
   setStarters() {
     const thisBooking = this;
