@@ -78,7 +78,7 @@ export const select = {
     booking: '.home-wrapper .booking',
   },
   nav: {
-    links: '.main-nav a',
+    links: '.main-nav a, .two-in-row a',
   },
 };
 
