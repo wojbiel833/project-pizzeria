@@ -142,19 +142,19 @@
       i {
         color: #fff;
         margin: 0 10px 0 10px;
-        z-index: 3;
+        z-index: 5;
 
         &:hover {
           cursor: pointer;
           transform: scale(2.1);
           transition: 1s;
 
-          .fa-heart {
-            color: #e70000;
-          }
-          .fa-share-alt {
-            color: #0034d1;
-          }
+          // .fa-heart {
+          //   color: #e70000;
+          // }
+          // .fa-share-alt {
+          //   color: #0034d1;
+          // }
         }
       }
     }
@@ -168,14 +168,22 @@
       height: 100%;
       opacity: 0.2;
       background: #fff;
-      cursor: pointer;
       z-index: 2;
     }
   }
 }
-.gallery-item:hover:after,
+.gallery-item:hover:after {
+  display: block;
+}
+
 .gallery-item:hover figcaption {
   display: block;
+
+  .fa-heart {
+    color: #e70000;
+    transform: scale(2.1);
+    transition: 1s;
+  }
 }
 
 .more-on-instagram {
