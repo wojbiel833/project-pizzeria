@@ -138,24 +138,24 @@
       width: 100%;
       top: 50%;
       transform: translateY(-50%);
+      z-index: 5;
 
       i {
         color: #fff;
         margin: 0 10px 0 10px;
-        z-index: 5;
 
-        &:hover {
-          cursor: pointer;
-          transform: scale(2.1);
-          transition: 1s;
+        // &:hover {
+        //   cursor: pointer;
+        //   transform: scale(2.1);
+        //   transition: 1s;
 
-          // .fa-heart {
-          //   color: #e70000;
-          // }
-          // .fa-share-alt {
-          //   color: #0034d1;
-          // }
-        }
+        //   // .fa-heart {
+        //   //   color: #e70000;
+        //   // }
+        //   // .fa-share-alt {
+        //   //   color: #0034d1;
+        //   // }
+        // }
       }
     }
     &:after {
@@ -178,12 +178,19 @@
 
 .gallery-item:hover figcaption {
   display: block;
+}
 
-  .fa-heart {
-    color: #e70000;
-    transform: scale(2.1);
-    transition: 1s;
-  }
+.gallery-wrapper .gallery-item figcaption .fa-heart:hover {
+  cursor: pointer;
+  color: #e70000;
+  transform: scale(2.1);
+  transition: 1s;
+}
+.gallery-wrapper .gallery-item figcaption .fa-share-alt:hover {
+  cursor: pointer;
+  color: #0034d1;
+  transform: scale(2.1);
+  transition: 1s;
 }
 
 .more-on-instagram {
